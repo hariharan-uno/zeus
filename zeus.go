@@ -42,7 +42,9 @@ type WeatherValue struct {
 	} `json:"data"`
 }
 
-var templates = template.Must(template.ParseFiles("form.html")) // Add more templates after form.html separated by a comma
+// templates caches the parsed templates, which speeds up the rendering of a template.
+// Add more templates after form.html separated by a comma
+var templates = template.Must(template.ParseFiles("form.html"))
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
 	err := templates.ExecuteTemplate(w, "form.html", nil)
