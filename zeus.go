@@ -1,3 +1,6 @@
+// zeus is a weather application that retrieves the maximum and minimum temperature
+// of 5 cities using World Weather Online API.
+// This app is made for the Gophercon Student Scholarship Competition.
 package zeus
 
 import (
@@ -77,16 +80,20 @@ func batchQuery(ctx appengine.Context, f url.Values) []WeatherValue {
 			out <- wv
 		}(v[0]) // we pass v[0] because url.Values is map[string][]string.
 	}
+
 	var result []WeatherValue
+
 	for i := 0; i < len(f); i++ {
 		result = append(result, <-out)
 	}
+
 	return result
 }
 
 // query fetches the WeatherValue of a single city by querying the
 // World Weather Online API.
 func query(ctx appengine.Context, city string) (WeatherValue, error) {
+
 	client := urlfetch.Client(ctx)
 	var wv WeatherValue
 
@@ -100,6 +107,7 @@ func query(ctx appengine.Context, city string) (WeatherValue, error) {
 		return wv, err
 	}
 
+	// We don't need to handle timeouts as appengine has a default timeout of 5 seconds on client.Get()
 	resp, err := client.Get(cityURL.String())
 	if err != nil {
 		return wv, err
