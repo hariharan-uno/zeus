@@ -2,24 +2,26 @@
 <head>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/css/main.css">
+<link href='//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+<title>Zeus</title>
 </head>
   <body>
     <br>
     <div class="container">
+      <h2> Zeus Weather App </h2><br><br>
       <form action="/weather" method="post">
-	<div><input type="text" name="c1"></div><br>
-	<div><input type="text" name="c2"></div><br>
-	<div><input type="text" name="c3"></div><br>
-	<div><input type="text" name="c4"></div><br>
-	<div><input type="text" name="c5"></div><br>
+	<div><input id="searchTextField1" type="text" name="c1" required></div><br>
+	<div><input id="searchTextField2" type="text" name="c2" required></div><br>
+	<div><input id="searchTextField3" type="text" name="c3" required></div><br>
+	<div><input id="searchTextField4" type="text" name="c4" required></div><br>
+	<div><input id="searchTextField5" type="text" name="c5" required></div><br>
 	<div><input type="submit" value="Get weather" class="btn btn-primary"></div><br>
       </form>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDIrXAhqmYm98HQLOzFEJrvO2FqZH-uuAA"></script>
+    <script src="/static/js/main.js"></script>
   </body>
 </html>
