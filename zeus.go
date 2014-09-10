@@ -1,3 +1,4 @@
+// Copyright (c) 2014 Hari haran
 // zeus is a weather application that retrieves the maximum and minimum temperature
 // of 5 cities using World Weather Online API.
 // This app is made for the Gophercon Student Scholarship Competition.
