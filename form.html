@@ -1,15 +1,25 @@
-<html>
-<head>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/static/css/main.css">
-<link href='//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
-<title>Zeus</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link href='//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+    <title>Zeus</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
   <body>
     <br>
     <div class="container">
-      <h2> Zeus Weather App </h2><br><br>
+      <h2> Zeus Weather App </h2><br>
+      <p>retrieve the maximum and minimum temperature of today for 5 cities</p><br>
       <form action="/weather" method="post">
 	<div><input id="searchTextField1" type="text" name="c1" required></div><br>
 	<div><input id="searchTextField2" type="text" name="c2" required></div><br>
@@ -18,7 +28,8 @@
 	<div><input id="searchTextField5" type="text" name="c5" required></div><br>
 	<div><input type="submit" value="Get weather" class="btn btn-primary"></div><br>
       </form>
-    </div>
+      <div style="font-size:11px;color:#555;">built by <a href="https://github.com/hariharan-uno">Hari haran</a></div>
+    </div>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDIrXAhqmYm98HQLOzFEJrvO2FqZH-uuAA"></script>

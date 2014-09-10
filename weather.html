@@ -12,7 +12,7 @@
 	<div class="panel-body">
 	  {{with $w.Data.Error}}<b>Error: </b>{{$e := index . 0 }}{{printf "%s" $e}}<br>{{end}}
 	  {{$l := len $w.Data.Request}}{{if gt $l 0}}{{$elem := index $w.Data.Request 0 }}
-	  <b>{{$elem.City}}</b><br>
+	  <b style="color:#1f2036">{{$elem.City}}</b><br>
 	  <div class="mono-font">
 	  Maximum: {{$weather := index $w.Data.Weather 0}}{{$weather.MaxC}}&#176;C<br>
 	  Minimum: {{$weather.MinC}}&#176;C<br>
@@ -21,6 +21,7 @@
 	</div>
       </div>         
       {{ end }}
+      <div style="font-size:11px;color:#555;">built by <a href="https://github.com/hariharan-uno">Hari haran</a></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
