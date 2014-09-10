@@ -13,9 +13,11 @@
 	  {{with $w.Data.Error}}<b>Error: </b>{{$e := index . 0 }}{{printf "%s" $e}}<br>{{end}}
 	  {{$l := len $w.Data.Request}}{{if gt $l 0}}{{$elem := index $w.Data.Request 0 }}
 	  <b>{{$elem.City}}</b><br>
-	  <b>Maximum temperature: </b>{{$weather := index $w.Data.Weather 0}}{{$weather.MaxC}} &#176;C<br>
-	  <b>Minimum temperature: </b>{{$weather.MinC}} &#176;C<br>
+	  <div class="mono-font">
+	  Maximum: {{$weather := index $w.Data.Weather 0}}{{$weather.MaxC}}&#176;C<br>
+	  Minimum: {{$weather.MinC}}&#176;C<br>
 	  {{end}}
+	  </div>
 	</div>
       </div>         
       {{ end }}
