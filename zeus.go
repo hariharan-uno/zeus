@@ -18,8 +18,8 @@ const (
 )
 
 func init() {
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/weather", weather)
+	http.HandleFunc("/", formHandler)
+	http.HandleFunc("/weather", weatherHandler)
 }
 
 // WeatherValue is a struct for decoding the json responses from World Weather Online API.
@@ -41,14 +41,14 @@ type WeatherValue struct {
 
 var templates = template.Must(template.ParseFiles("form.html")) // Add more templates after form.html separated by a comma
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func formHandler(w http.ResponseWriter, r *http.Request) {
 	err := templates.ExecuteTemplate(w, "form.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-func weather(w http.ResponseWriter, r *http.Request) {
+func weatherHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	if err := r.ParseForm(); err != nil {
@@ -56,20 +56,36 @@ func weather(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var a []WeatherValue
-	for _, city := range r.Form {
-		x, err := query(ctx, city[0])
-
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		a = append(a, x)
-	}
-	fmt.Fprint(w, a)
+	values := batchQuery(ctx, r.Form)
+	fmt.Fprint(w, values)
 }
 
+// batchQuery queries multiple cities obtained from url values concurrently
+// and returns a slice of WeatherValues.
+func batchQuery(ctx appengine.Context, f url.Values) []WeatherValue {
+	out := make(chan WeatherValue)
+	for _, v := range f {
+		// spawn a goroutine on an anonymous function to query the data of a single city.
+		go func(city string) {
+			wv, err := query(ctx, city)
+			if err != nil {
+				// Here we just log the error as an empty WeatherValue variable
+				// will be shown as an error in the template.
+				ctx.Errorf("%s", err)
+				out <- wv
+			}
+			out <- wv
+		}(v[0]) // we pass v[0] because url.Values is map[string][]string.
+	}
+	var result []WeatherValue
+	for i := 0; i < len(f); i++ {
+		result = append(result, <-out)
+	}
+	return result
+}
+
+// query fetches the WeatherValue of a single city by querying the
+// World Weather Online API.
 func query(ctx appengine.Context, city string) (WeatherValue, error) {
 	client := urlfetch.Client(ctx)
 	var wv WeatherValue
