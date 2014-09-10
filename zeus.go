@@ -5,7 +5,6 @@ package zeus
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/url"
 	"text/template"
@@ -43,13 +42,13 @@ type WeatherValue struct {
 }
 
 // templates caches the parsed templates, which speeds up the rendering of a template.
-// Add more templates after form.html separated by a comma
-var templates = template.Must(template.ParseFiles("form.html"))
+var templates = template.Must(template.ParseFiles("form.html", "weather.html"))
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
 	err := templates.ExecuteTemplate(w, "form.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -62,7 +61,11 @@ func weatherHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	values := batchQuery(ctx, r.Form)
-	fmt.Fprint(w, values)
+	err := templates.ExecuteTemplate(w, "weather.html", struct{ Values []WeatherValue }{values})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 // batchQuery queries multiple cities obtained from url values concurrently

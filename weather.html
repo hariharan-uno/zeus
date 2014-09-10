@@ -1,0 +1,33 @@
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+  <body>
+    <br>
+    <div class="container">
+      {{ range $w := .Values}}
+      <div class="panel panel-default">
+	<div class="panel-body">
+	  {{with $w.Data.Error}}
+	  <b>Error: </b>{{print . }} <br>
+	  {{end}}
+	  {{$l := len $w.Data.Request}}
+          {{if gt $l 0}}
+	  {{$elem := index $w.Data.Request 0 }}
+	  <b>{{$elem.City}}</b><br>
+	  <b>Maximum temperature: </b>{{$weather := index $w.Data.Weather 0}}{{$weather.MaxC}} &#176;C<br>
+	  <b>Minimum temperature: </b>{{$weather.MinC}} &#176;C<br>
+	  {{end}}
+	</div>
+      </div>         
+      {{ end }}
+    </div>
+  </body>
+</html>
