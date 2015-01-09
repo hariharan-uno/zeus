@@ -6,7 +6,7 @@ body {
 }
 
 h2 {
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: -.01em;
     line-height: 24px;
     margin: 0;
@@ -20,4 +20,12 @@ h2 {
 
 .mono-font {
     font-family: Consolas, monospace;
+}
+
+input {
+    padding: 5px;
+}
+
+.btn {
+    border-radius: 2px;
 }
